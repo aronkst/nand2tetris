@@ -1,0 +1,42 @@
+/*
+  computer class, your opponent in this game.
+*/
+class Computer {
+  field int points;
+  
+  // Starts with its points at zero and
+  // inserts the seed that is used to generate random numbers.
+  constructor Computer new(int seed) {
+    let points = 0;
+    do Random.setSeed(seed);
+    return this;
+  }
+
+  // Adds a point to the computer.
+  method void addPoint() {
+    let points = points + 1;
+    return;
+  }
+
+  // Get the points of the computer.
+  method int getPoints() {
+    return points;
+  }
+
+  // Perform the computer move, being a value from 1000 to 3999,
+  // this value will now be used as the new seed and your
+  // first digit will be the computer move.
+  method int play() {
+    var int value;
+    let value = Random.randRange(1000, 3999);
+    if (value < 2000) {
+      return 1;
+    } else {
+      if (value > 2999) {
+        return 3;
+      } else {
+        return 2;
+      }
+    }
+  }
+}

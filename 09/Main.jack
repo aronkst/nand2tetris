@@ -1,0 +1,59 @@
+/*
+  Starts the Menu class, where all the game screens are.
+*/
+class Main {
+  function void main() {
+    var Menu menu;
+    var You you;
+    var Computer computer;
+    var int seed, youchoice, computerChoice, whoWin;
+    var String youchoiceString, computerChoiceString;
+    var boolean loop;
+
+    // Start the Menu class and show the welcome
+    // screens and to enter the random number.
+    let menu = Menu.new();
+    do menu.welcome();
+    do menu.enterRandomNumber();
+
+    // Get the seed value, inserted in the enterRandomNumber
+    // method of the Menu class.
+    let seed = menu.getSeed();
+
+    // Starts the player (You) and computer class.
+    let you = You.new();
+    let computer = Computer.new(seed);
+
+    // An infinite loop, where you take the option of the player's
+    // move and if it is number nine, it changes the value of the
+    // variable loop, thus leaving the while.
+    // If it is not number nine, it is a valid move and takes the name of
+    // the move from the player and the computer and also who won this game,
+    // adding a point in their class, with the addPoint method and finally
+    // showing the end of the game and the punctuation on the screen.
+    let loop = true;
+    while (loop) {
+      let youchoice = menu.letsPlay();
+      if (youchoice = 9) {
+        let loop = false;
+      } else {
+        let youchoiceString = Utils.rockPaperScissors(youchoice);
+        let computerChoice = computer.play();
+        let computerChoiceString = Utils.rockPaperScissors(computerChoice);
+        let whoWin = Utils.whoWin(youchoice, computerChoice);
+        if (whoWin = 1) {
+          do you.addPoint();
+        }
+        if (whoWin = 2) {
+          do computer.addPoint();
+        }
+        do menu.endGame(youchoiceString, computerChoiceString, whoWin);
+        do menu.showPoints(you, computer);
+      }
+    }
+
+    // Displays the exit screen and ends the game.
+    do menu.exit();
+    return;
+  }
+}

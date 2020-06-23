@@ -1,0 +1,161 @@
+/*
+  Class with the generation and manipulation of the data loaded via the screen.
+*/
+class Menu {
+  field String name;
+  field int seed;
+  
+  constructor Menu new() {
+    return this;
+  }
+
+  // Get the seed value entered in the enterRandomNumber method.
+  method int getSeed() {
+    return seed;
+  }
+
+  // Shows the Welcome screen, leaving it on the screen for two seconds,
+  // then skips 23 lines and clears the screen.
+  // The reason for skipping the 23 lines is for the next screen to start the
+  // text at the beginning of the screen, not where the
+  // text stopped on this screen.
+  method void welcome() {
+    do Output.printString("Let's Play, Rock Paper Scissors!");
+    do Sys.wait(2000);
+    do printLine(23);
+    do Screen.clearScreen();
+    return;
+  }
+
+  // Screen for the player to choose a random number from 1 to 1000,
+  // this number is inserted in the seed variable, which will
+  // be used in the Random class.
+  // There is a while where it only leaves the while if the number is valid,
+  // that is, a number between 1 and 1000.
+  method void enterRandomNumber() {
+    var boolean loop;
+    let loop = true;
+    while (loop) {
+      do Output.printString("Enter a random number from 1 to 1,000.");
+      do printLine(1);
+      do Output.printString("This number will be used as a seed to generate random numbers.");
+      do printLine(2);
+      let seed = Keyboard.readInt("");
+      if (seed > 0) {
+        if (seed < 1001) {
+          let loop = false;
+        }
+      }
+      if (loop) {
+        do printLine(19);
+        do Screen.clearScreen();
+      }
+    }
+    do Sys.wait(500);
+    do printLine(19);
+    do Screen.clearScreen();
+    return;
+  }
+
+  // Screen for the player to choose his play in the game,
+  // or choose the number nine to end the game.
+  // The while is to ensure that the player can only
+  // choose the four game options, 0, 1, 2 or 9.
+  method int letsPlay() {
+    var int choice;
+    var boolean loop;
+    let loop = true;
+    while (loop) {
+      do Output.printString("0 - Rock");
+      do printLine(1);
+      do Output.printString("1 - Paper");
+      do printLine(1);
+      do Output.printString("2 - Scissors");
+      do printLine(1);
+      do Output.printString("9 - Exit");
+      do printLine(2);
+      do Output.printString("What is your choice?");
+      do printLine(2);
+      let choice = Keyboard.readInt("");
+      if (choice = 9) {
+        let loop = false;
+      }
+      if (choice = 0) {
+        let loop = false;
+      }
+      if (choice > 0) {
+        if (choice < 3) {
+          let loop = false;
+        }
+      }
+      if (loop) {
+        do printLine(15);
+        do Screen.clearScreen();
+      }
+    }
+    do Sys.wait(500);
+    do printLine(15);
+    do Screen.clearScreen();
+    return choice;
+  }
+
+  // Screen to show the end of the game, who won the game or if nobody won,
+  // leaves the result on the screen for three seconds.
+  method void endGame(String you, String computer, int whoWin) {
+    do Output.printString("You: ");
+    do Output.printString(you);
+    do printLine(2);
+    do Output.printString("Computer: ");
+    do Output.printString(computer);
+    do printLine(2);
+    if (whoWin = 0) {
+      do Output.printString("Nobody Won");
+    }
+    if (whoWin = 1) {
+      do Output.printString("You Won");
+    }
+    if (whoWin = 2) {
+      do Output.printString("You Lost");
+    }
+    do Sys.wait(3000);
+    do printLine(19);
+    do Screen.clearScreen();
+    return;
+  }
+
+  // Screen showing the score of you and the computer,
+  // the score is shown for three seconds.
+  method void showPoints(You you, Computer computer) {
+    var int youPoints, computerPoints;
+    let youPoints = you.getPoints();
+    let computerPoints = computer.getPoints();
+    do Output.printString("Points");
+    do printLine(2);
+    do Output.printString("You: ");
+    do Output.printInt(youPoints);
+    do printLine(2);
+    do Output.printString("Computer: ");
+    do Output.printInt(computerPoints);
+    do Sys.wait(3000);
+    do printLine(19);
+    do Screen.clearScreen();
+    return;
+  }
+
+  // Screen stating that the game is ending.
+  method void exit() {
+    do Output.printString("Goodbye");
+    return;
+  }
+
+  // Method to jump a number of lines defined by the parameter lines.
+  method void printLine(int lines) {
+    var int i;
+    let i = 0;
+    while (i < lines) {
+      do Output.println();
+      let i = i + 1;
+    }
+    return;
+  }
+}

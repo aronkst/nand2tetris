@@ -1,0 +1,23 @@
+/*
+  Player class, you in this game.
+*/
+class You {
+  field int points;
+  
+  // Starts with your points at zero.
+  constructor You new() {
+    let points = 0;
+    return this;
+  }
+
+  // Add a point for you.
+  method void addPoint() {
+    let points = points + 1;
+    return;
+  }
+
+  // Get your points.
+  method int getPoints() {
+    return points;
+  }
+}

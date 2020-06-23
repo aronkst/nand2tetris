@@ -1,0 +1,41 @@
+/*
+  Class to generate random numbers using a seed.
+*/
+class Random {
+  static int seed;
+
+  // Insert the seed value, used as a basis to generate the random numbers.
+  function void setSeed(int seedValue) {
+    let seed = seedValue;
+    if (seed = 0) {
+      let seed = 1;
+    }
+    return;
+  }
+
+  // Generates a random int number.
+  function int rand() {
+    var int value, auxA, auxB, auxC;
+    let auxA = 20000 / 200;
+    let auxB = Utils.mod(20000, 200);
+    let auxC = Utils.mod(seed, auxA);
+    let value = (200 * (auxC)) - (auxB * (seed / auxA));
+    if (value < 0) {
+      let seed = value + 20000;
+    }
+    else {
+      let seed = value;
+    }
+    return seed;
+  }
+
+  // Generates a random number between the low and high values.
+  function int randRange(int low, int high) {
+    var int value, random, auxA;
+    let auxA = (20000 / (high - low + 1));
+    let random = Random.rand();
+    let value = (random / auxA) + low;
+    do Random.setSeed(value);
+    return value;
+  }
+}
